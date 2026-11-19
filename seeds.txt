@@ -1,0 +1,11 @@
+# Discovery starting points. The crawler follows links only when robots.txt permits it.
+https://en.wikipedia.org/wiki/Main_Page
+https://www.gov.uk/
+https://europa.eu/
+https://data.europa.eu/
+https://www.nasa.gov/
+https://www.who.int/
+https://www.un.org/
+https://www.mozilla.org/
+https://www.nist.gov/
+https://www.gutenberg.org/
