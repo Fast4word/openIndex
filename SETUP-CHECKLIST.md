@@ -5,7 +5,7 @@
 - [ ] Copy the D1 Database ID.
 - [ ] Edit `wrangler.jsonc` in GitHub and replace `REPLACE_WITH_D1_DATABASE_ID`; commit the change.
 - [ ] In Cloudflare Workers & Pages, create an application from GitHub and select `Fast4word/openIndex`, branch `main`, root directory.
-- [ ] Configure the deploy command as `npm run deploy` (build command: `npm install`) if Cloudflare does not detect it automatically.
+- [ ] Leave the build command empty; set the deploy command to `npm run deploy` (or keep the default `npx wrangler deploy`) and root directory to `/`.
 - [ ] Save and deploy the Worker. Confirm the generated `workers.dev` URL opens the OpenIndex page.
 - [ ] Add the Worker secret `INGEST_SECRET` in Cloudflare.
 - [ ] Add GitHub Actions repository secrets `SEARCH_API_URL` (Worker base URL) and `INGEST_SECRET` (the same secret).
