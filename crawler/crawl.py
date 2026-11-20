@@ -51,8 +51,18 @@ def api(path: str, payload: dict | None = None, method: str = "GET") -> dict:
         response = session.get(f"{API_URL}{path}", headers=headers, timeout=30)
     else:
         response = session.post(f"{API_URL}{path}", json=payload or {}, headers=headers, timeout=60)
-    response.raise_for_status()
-    return response.json()
+    if not response.ok:
+        try:
+            detail = response.json()
+        except ValueError:
+            detail = response.text[:500]
+        raise RuntimeError(
+            f"OpenIndex API returned HTTP {response.status_code} for {path}: {detail}"
+        )
+    try:
+        return response.json()
+    except ValueError as exc:
+        raise RuntimeError(f"OpenIndex API returned invalid JSON for {path}") from exc
 
 
 def normalise_url(raw: str, base: str | None = None) -> str | None:
