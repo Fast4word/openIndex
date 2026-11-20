@@ -37,8 +37,8 @@ A database ID is an identifier, not a password. Never put API tokens or secret v
 1. In Cloudflare, open **Workers & Pages → Create application → GitHub**.
 2. Authorise the Cloudflare Workers & Pages GitHub App if prompted, and grant it access to **Fast4word/openIndex**.
 3. Select this repository and the **main** branch. Set the root directory to **/**.
-4. Use **npm install** as the build command and **npm run deploy** as the deploy command if Cloudflare does not detect the commands automatically. The included package.json installs Wrangler.
-5. Save and deploy. The Worker name is **openindex-search**, as set in wrangler.jsonc.
+4. In the build settings, leave **Build command** empty. Set **Deploy command** to **npm run deploy** (this script is already in package.json). Set **Root directory** to **/**. You can also use the default deploy command, **npx wrangler deploy**.
+5. Save and deploy. The Worker name is **openindex-search**, as set in wrangler.jsonc. Cloudflare requires the dashboard Worker name to match the name in Wrangler configuration.
 6. Open the **workers.dev** URL Cloudflare provides. You should see the OpenIndex search page.
 
 Cloudflare's official Git integration instructions: https://developers.cloudflare.com/workers/ci-cd/builds/
