@@ -140,13 +140,24 @@ export default {
       if (!validSecret(request, env)) return json({ error: "Unauthorised" }, 401);
 
       if (url.pathname === "/internal/queue" && request.method === "POST") {
+        let body;
         try {
-          const body = await request.json();
+          body = await request.json();
+        } catch {
+          return json({ error: "Invalid JSON queue payload" }, 400);
+        }
+        try {
           const urls = Array.isArray(body.urls) ? body.urls.slice(0, 200) : [];
           const count = await insertQueue(env, urls, 10);
           return json({ accepted: count });
-        } catch {
-          return json({ error: "Invalid queue payload" }, 400);
+        } catch (error) {
+          // This endpoint is authenticated. Include a short diagnostic so a
+          // missing D1 table/binding can be fixed without exposing secrets.
+          console.error("OpenIndex queue database error", error);
+          return json({
+            error: "Queue database operation failed",
+            detail: String(error?.message || error).slice(0, 400)
+          }, 500);
         }
       }
 
